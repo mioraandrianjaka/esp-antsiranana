@@ -1,0 +1,191 @@
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { 
+    FaGraduationCap, 
+    FaArrowRight, 
+    FaNewspaper, 
+    FaUserGraduate, 
+    FaCalendarAlt, 
+    FaChartLine,
+    FaLaptopCode,
+    FaHardHat,
+    FaMicrochip,
+    FaWater,
+    FaCogs,
+    FaPlug,
+    FaBrain
+} from 'react-icons/fa';
+import { getActualites, getFormations } from '../../services/api';
+
+function Accueil() {
+    const [actualites, setActualites] = useState([]);
+    const [formations, setFormations] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    const iconeParFiliere = {
+        'STIC': <FaLaptopCode />,
+        'GC': <FaHardHat />,
+        'GM': <FaCogs />,
+        'GE': <FaPlug />,
+        'HE': <FaWater />,
+        'GET': <FaMicrochip />,
+        'TNC': <FaBrain />,
+        'GMH': <FaWater />
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [actuRes, formRes] = await Promise.all([
+                    getActualites(),
+                    getFormations()
+                ]);
+                setActualites(actuRes.data.slice(0, 3));
+                setFormations(formRes.data.slice(0, 6));
+            } catch (error) {
+                console.error('Erreur:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchData();
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="loading">
+                <div className="spinner"></div>
+                <p>Chargement...</p>
+            </div>
+        );
+    }
+
+    return (
+        <div className="container">
+            {/* Hero Section avec animation */}
+            <motion.div 
+                className="hero"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+            >
+                <motion.h1
+                    initial={{ scale: 0.9 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 0.5 }}
+                >
+                    <FaGraduationCap style={{ marginRight: '16px' }} />
+                    ESP Antsiranana
+                </motion.h1>
+                <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.3, duration: 0.8 }}
+                >
+                    Ecole Supérieure Polytechnique d'Antsiranana<br />
+                    Excellence, Innovation et Formation depuis 1976
+                </motion.p>
+            </motion.div>
+
+            {/* Formations */}
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.2 }}
+            >
+                <h2 className="section-title">
+                    <FaGraduationCap style={{ marginRight: '12px' }} />
+                    Nos Formations d'Excellence
+                </h2>
+                <div className="formations-grid">
+                    {formations.map((formation, index) => (
+                        <motion.div
+                            key={formation.id_formation}
+                            className="formation-card"
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: index * 0.1 }}
+                            whileHover={{ scale: 1.02 }}
+                        >
+                            <div className="formation-icon">
+                                {iconeParFiliere[formation.code] || <FaGraduationCap />}
+                            </div>
+                            <h3>{formation.nom}</h3>
+                            <code>{formation.code}</code>
+                            <p>{formation.description?.substring(0, 100)}...</p>
+                            <Link to={`/formations/${formation.code}`} className="btn">
+                                Explorer <FaArrowRight style={{ marginLeft: '8px' }} />
+                            </Link>
+                        </motion.div>
+                    ))}
+                </div>
+            </motion.div>
+
+            {/* Actualités */}
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4 }}
+            >
+                <h2 className="section-title">
+                    <FaNewspaper style={{ marginRight: '12px' }} />
+                    Actualités
+                </h2>
+                <div className="formations-grid">
+                    {actualites.map((actu, index) => (
+                        <motion.div
+                            key={actu.id_actu}
+                            className="formation-card"
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.5 + index * 0.1 }}
+                        >
+                            <h3>{actu.titre}</h3>
+                            <p>{actu.description?.substring(0, 150)}</p>
+                            <small style={{ color: '#888' }}>
+                                📅 {new Date(actu.date_publication).toLocaleDateString()}
+                            </small>
+                        </motion.div>
+                    ))}
+                </div>
+            </motion.div>
+
+            {/* Liens rapides */}
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6 }}
+            >
+                <h2 className="section-title">
+                    <FaChartLine style={{ marginRight: '12px' }} />
+                    Services Étudiants
+                </h2>
+                <div className="formations-grid">
+                    <Link to="/emploi-temps" className="formation-card" style={{ textDecoration: 'none' }}>
+                        <div className="formation-icon"><FaCalendarAlt /></div>
+                        <h3>Emploi du temps</h3>
+                        <p>Consultez vos emplois du temps par classe</p>
+                    </Link>
+                    <Link to="/resultats" className="formation-card" style={{ textDecoration: 'none' }}>
+                        <div className="formation-icon"><FaChartLine /></div>
+                        <h3>Résultats</h3>
+                        <p>Accédez à vos notes et délibérations</p>
+                    </Link>
+                    <Link to="/cours" className="formation-card" style={{ textDecoration: 'none' }}>
+                        <div className="formation-icon"><FaGraduationCap /></div>
+                        <h3>Espace Cours</h3>
+                        <p>Téléchargez et partagez vos documents</p>
+                    </Link>
+                    <Link to="/alumni" className="formation-card" style={{ textDecoration: 'none' }}>
+                        <div className="formation-icon"><FaUserGraduate /></div>
+                        <h3>Alumni</h3>
+                        <p>Rejoignez notre communauté</p>
+                    </Link>
+                </div>
+            </motion.div>
+        </div>
+    );
+}
+
+export default Accueil;
