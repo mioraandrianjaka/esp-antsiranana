@@ -26,7 +26,6 @@ function GestionClasses() {
     const [filieres, setFilieres] = useState([]);
     const [selectedFiliere, setSelectedFiliere] = useState('');
     const [selectedClasse, setSelectedClasse] = useState('');
-    const [selectedClasseNom, setSelectedClasseNom] = useState('');
     const [edtFile, setEdtFile] = useState(null);
     const [resultatsFile, setResultatsFile] = useState(null);
     const [semestre, setSemestre] = useState('S1');
@@ -179,8 +178,6 @@ function GestionClasses() {
                             value={selectedClasse} 
                             onChange={(e) => {
                                 setSelectedClasse(e.target.value);
-                                const classe = classes.find(c => c.id_classe === parseInt(e.target.value));
-                                setSelectedClasseNom(classe?.nom || '');
                             }}
                         >
                             <option value="">Sélectionner une classe</option>
