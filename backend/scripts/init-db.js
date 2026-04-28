@@ -1,14 +1,12 @@
 // backend/scripts/init-db.js
+require('dotenv').config();
 const bcrypt = require('bcrypt');
 const mysql = require('mysql2/promise');
+const getDbConfig = require('../config/db-config');
 
 async function initDB() {
-    const connection = await mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: '',
-        database: 'esp_antsiranana'
-    });
+    const dbConfig = getDbConfig();
+    const connection = await mysql.createConnection(dbConfig.uri || dbConfig);
     
     // Generer le hash du mot de passe admin
     const adminPassword = 'admin123';

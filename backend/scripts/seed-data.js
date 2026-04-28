@@ -1,14 +1,12 @@
 // backend/scripts/seed-data.js
+require('dotenv').config();
 const mysql = require('mysql2/promise');
 const bcrypt = require('bcrypt');
+const getDbConfig = require('../config/db-config');
 
 async function seedData() {
-    const connection = await mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: '',
-        database: 'esp_antsiranana'
-    });
+    const dbConfig = getDbConfig();
+    const connection = await mysql.createConnection(dbConfig.uri || dbConfig);
     
     console.log('[1/7] Nettoyage des tables dans le bon ordre...');
     
