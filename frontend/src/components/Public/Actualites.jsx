@@ -153,7 +153,7 @@ useEffect(() => {
                             >
                                 {actu.image_url && (
                                     <img 
-                                        src={`http://localhost:5000${actu.image_url}`} 
+                                        src={`http://esp-antsiranana.onrender.com${actu.image_url}`} 
                                         alt={actu.titre}
                                         style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '16px', marginBottom: '16px' }}
                                     />

@@ -149,7 +149,7 @@ function EmploiTemps() {
                         
                         <div className="pdf-container">
                             <embed 
-                                src={`http://localhost:5000${edt.fichier_url}`} 
+                                src={`http://esp-antsiranana.onrender.com${edt.fichier_url}`} 
                                 type="application/pdf" 
                                 width="100%" 
                                 height="600px"

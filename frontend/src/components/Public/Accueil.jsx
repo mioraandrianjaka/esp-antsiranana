@@ -219,7 +219,7 @@ function Accueil() {
                                     {actu.image_url && (
                                         <div className="feed-image">
                                             <img 
-                                                src={`http://localhost:5000${actu.image_url}`} 
+                                                src={`http://esp-antsiranana.onrender.com${actu.image_url}`} 
                                                 alt={actu.titre}
                                             />
                                         </div>
