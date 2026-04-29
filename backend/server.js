@@ -454,7 +454,7 @@ app.put('/api/admin/classes/:id/motdepasse', auth, async (req, res) => {
 // Upload emploi du temps
 app.post('/api/admin/emploi-temps', auth, upload.single('fichier'), async (req, res) => {
     try {
-        const { id_classe, semestre, annee_academique } = req.body;
+        const { id_classe, semestre, annee_academique, description } = req.body;
         
         if (!req.file) {
             return res.status(400).json({ error: 'Aucun fichier uploade' });
@@ -477,7 +477,7 @@ app.post('/api/admin/emploi-temps', auth, upload.single('fichier'), async (req, 
 // Upload resultats
 app.post('/api/admin/resultats', auth, upload.single('fichier'), async (req, res) => {
     try {
-        const { id_classe, type, semestre, annee_academique } = req.body;
+        const { id_classe, type, semestre, annee_academique, description } = req.body;
         
         if (!req.file) {
             return res.status(400).json({ error: 'Aucun fichier uploade' });
@@ -628,4 +628,76 @@ app.post('/api/admin/change-password', auth, async (req, res) => {
 // Demarrage du serveur
 app.listen(PORT, () => {
     console.log(`Serveur demarre sur le port ${PORT}`);
+});
+
+// Récupérer tous les EDT
+app.get('/api/admin/emplois-temps', auth, async (req, res) => {
+    try {
+        const [emplois] = await db.execute(`
+            SELECT e.*, c.nom as classe_nom 
+            FROM emploi_temps e 
+            LEFT JOIN classe c ON e.id_classe = c.id_classe 
+            ORDER BY e.uploaded_at DESC
+        `);
+        res.json(emplois);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Récupérer tous les résultats
+app.get('/api/admin/resultats-list', auth, async (req, res) => {
+    try {
+        const [resultats] = await db.execute(`
+            SELECT r.*, c.nom as classe_nom 
+            FROM resultat r 
+            LEFT JOIN classe c ON r.id_classe = c.id_classe 
+            ORDER BY r.uploaded_at DESC
+        `);
+        res.json(resultats);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Récupérer tous les documents cours
+app.get('/api/admin/cours-files', auth, async (req, res) => {
+    try {
+        const [fichiers] = await db.execute(`
+            SELECT cf.*, c.nom as classe_nom 
+            FROM cours_fichier cf 
+            LEFT JOIN classe c ON cf.id_classe = c.id_classe 
+            ORDER BY cf.uploaded_at DESC
+        `);
+        res.json(fichiers);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+// Supprimer un document
+app.delete('/api/admin/document/:type/:id', auth, async (req, res) => {
+    try {
+        const { type, id } = req.params;
+        let table = '';
+        let idField = '';
+        
+        if (type === 'edt') {
+            table = 'emploi_temps';
+            idField = 'id_edt';
+        } else if (type === 'resultat') {
+            table = 'resultat';
+            idField = 'id_resultat';
+        } else if (type === 'cours') {
+            table = 'cours_fichier';
+            idField = 'id_fichier';
+        } else {
+            return res.status(400).json({ error: 'Type invalide' });
+        }
+        
+        await db.execute(`DELETE FROM ${table} WHERE ${idField} = ?`, [id]);
+        res.json({ success: true });
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
 });
