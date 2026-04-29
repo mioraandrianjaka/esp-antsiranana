@@ -65,4 +65,10 @@ export const adminGetPendingAlumni = () => api.get('/admin/alumni');
 export const adminValidateAlumni = (id) => api.put(`/admin/alumni/${id}/valider`);
 export const adminDeleteAlumni = (id) => api.delete(`/admin/alumni/${id}`);
 
+// Gestion des données (admin)
+export const adminGetEmploisTemps = () => api.get('/admin/emplois-temps');
+export const adminGetResultats = () => api.get('/admin/resultats-list');
+export const adminGetCoursFiles = () => api.get('/admin/cours-files');
+export const adminDeleteDocument = (type, id) => api.delete(`/admin/document/${type}/${id}`);
+
 export default api;

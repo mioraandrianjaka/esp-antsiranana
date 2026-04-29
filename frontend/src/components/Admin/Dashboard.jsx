@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
+import GestionDonnees from './GestionDonnees';
+import { FaDatabase } from 'react-icons/fa';
 import { 
     FaTachometerAlt, 
     FaNewspaper, 
@@ -55,6 +57,9 @@ function Dashboard() {
                     </Link>
                     <Link to="/admin/classes">
                         <FaChalkboardTeacher /> Classes & Documents
+                    </Link>
+                    <Link to="/admin/donnees">
+                        <FaDatabase /> Gestion données
                     </Link>
                     <Link to="/admin/inscriptions">
                         <FaUserPlus /> Inscriptions
