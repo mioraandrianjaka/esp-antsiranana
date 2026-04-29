@@ -16,6 +16,8 @@ import GestionClasses from './GestionClasses';
 import GestionInscriptions from './GestionInscriptions';
 import Parametres from './Parametres';
 import DashboardAccueil from './DashboardAccueil';
+import GestionDonnees from './GestionDonnees';
+import { FaDatabase } from 'react-icons/fa';
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -64,6 +66,9 @@ function Dashboard() {
                     <Link to="/admin/inscriptions">
                         <FaUserPlus /> Inscriptions
                     </Link>
+                    <Link to="/admin/donnees">
+                        <FaDatabase /> Gestion données
+                    </Link>    
                     <Link to="/admin/parametres">
                         <FaCog /> Paramètres
                     </Link>
@@ -80,6 +85,7 @@ function Dashboard() {
                     <Route path="/actualites" element={<GestionActualites />} />
                     <Route path="/classes" element={<GestionClasses />} />
                     <Route path="/inscriptions" element={<GestionInscriptions />} />
+                    <Route path="/donnees" element={<GestionDonnees />} />
                     <Route path="/parametres" element={<Parametres />} />
                 </Routes>
             </div>
