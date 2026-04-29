@@ -62,7 +62,7 @@ function EmploiTemps() {
 
     const handleDownload = () => {
         if (edt) {
-            window.open(`http://localhost:5000${edt.fichier_url}`, '_blank');
+            window.open(`https://esp-antsiranana.onrender.com${edt.fichier_url}`, '_blank');
         }
     };
 

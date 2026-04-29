@@ -63,7 +63,7 @@ function Resultats() {
 
     const handleDownload = () => {
         if (resultat) {
-            window.open(`http://localhost:5000${resultat.fichier_url}`, '_blank');
+            window.open(`https://esp-antsiranana.onrender.com${resultat.fichier_url}`, '_blank');
         }
     };
 

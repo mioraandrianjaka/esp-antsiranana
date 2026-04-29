@@ -331,7 +331,7 @@ function CoursClasse() {
                                         </div>
                                     </div>
                                     <a 
-                                        href={`http://localhost:5000${doc.fichier_url}`} 
+                                        href={`https://esp-antsiranana.onrender.com${doc.fichier_url}`} 
                                         download 
                                         className="doc-download"
                                         target="_blank"
