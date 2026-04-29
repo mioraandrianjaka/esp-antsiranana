@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
-import GestionDonnees from './GestionDonnees';
 import { FaDatabase } from 'react-icons/fa';
 import { 
     FaTachometerAlt, 
