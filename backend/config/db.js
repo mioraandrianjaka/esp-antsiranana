@@ -1,12 +1,15 @@
-// backend/config/db.js
 const mysql = require('mysql2/promise');
-const getDbConfig = require('./db-config');
-
-const dbConfig = getDbConfig();
-const baseConfig = dbConfig.uri ? dbConfig.uri : dbConfig;
 
 const pool = mysql.createPool({
-    ...baseConfig,
+    host: process.env.DB_HOST || 'localhost',
+    port: process.env.DB_PORT || 3306,
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD || '',
+    database: process.env.DB_NAME || 'esp_antsiranana',
+    ssl: {
+        // Pour TiDB, souvent nécessaire
+        rejectUnauthorized: true
+    },
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
