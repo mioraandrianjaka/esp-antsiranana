@@ -7,15 +7,13 @@ import {
     FaUserPlus, 
     FaCog,
     FaSignOutAlt, 
-    FaUserLock,
-    FaDatabase
+    FaUserLock
 } from 'react-icons/fa';
 import GestionActualites from './GestionActualites';
 import GestionClasses from './GestionClasses';
 import GestionInscriptions from './GestionInscriptions';
 import Parametres from './Parametres';
 import DashboardAccueil from './DashboardAccueil';
-import GestionDonnees from './GestionDonnees';
 
 function Dashboard() {
     const navigate = useNavigate();
@@ -52,7 +50,6 @@ function Dashboard() {
                     <Link to="/admin"><FaTachometerAlt /> Tableau de bord</Link>
                     <Link to="/admin/actualites"><FaNewspaper /> Actualités</Link>
                     <Link to="/admin/classes"><FaChalkboardTeacher /> Classes & Documents</Link>
-                    <Link to="/admin/donnees"><FaDatabase /> Gestion données</Link>
                     <Link to="/admin/inscriptions"><FaUserPlus /> Inscriptions</Link>
                     <Link to="/admin/parametres"><FaCog /> Paramètres</Link>
                 </nav>
@@ -68,7 +65,6 @@ function Dashboard() {
                     <Route path="/actualites" element={<GestionActualites />} />
                     <Route path="/classes" element={<GestionClasses />} />
                     <Route path="/inscriptions" element={<GestionInscriptions />} />
-                    <Route path="/donnees" element={<GestionDonnees />} />
                     <Route path="/parametres" element={<Parametres />} />
                 </Routes>
             </div>
