@@ -49,24 +49,12 @@ function Dashboard() {
                 </div>
                 <hr />
                 <nav className="admin-nav">
-                    <Link to="/admin">
-                        <FaTachometerAlt /> Tableau de bord
-                    </Link>
-                    <Link to="/admin/actualites">
-                        <FaNewspaper /> Actualités
-                    </Link>
-                    <Link to="/admin/classes">
-                        <FaChalkboardTeacher /> Classes & Documents
-                    </Link>
-                    <Link to="/admin/donnees">
-                        <FaDatabase /> Gestion données
-                    </Link>
-                    <Link to="/admin/inscriptions">
-                        <FaUserPlus /> Inscriptions
-                    </Link>
-                    <Link to="/admin/parametres">
-                        <FaCog /> Paramètres
-                    </Link>
+                    <Link to="/admin"><FaTachometerAlt /> Tableau de bord</Link>
+                    <Link to="/admin/actualites"><FaNewspaper /> Actualités</Link>
+                    <Link to="/admin/classes"><FaChalkboardTeacher /> Classes & Documents</Link>
+                    <Link to="/admin/donnees"><FaDatabase /> Gestion données</Link>
+                    <Link to="/admin/inscriptions"><FaUserPlus /> Inscriptions</Link>
+                    <Link to="/admin/parametres"><FaCog /> Paramètres</Link>
                 </nav>
                 <hr />
                 <button onClick={handleLogout} className="logout-btn">
